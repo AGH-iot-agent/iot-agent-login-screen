@@ -2,8 +2,18 @@
 import React, { useState } from "react";
 import "./App.css";
 
+function resolveDashboardUrl() {
+  const { protocol, hostname } = globalThis.location;
+
+  if (hostname.includes("login-screen")) {
+    return `${protocol}//${hostname.replace("login-screen", "dashboard-ui")}/`;
+  }
+
+  return `${protocol}//${hostname}/`;
+}
+
 export default function App() {
-  const [mode, setMode] = useState("login"); // "login" lub "register"
+  const [mode, setMode] = useState("login"); 
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [email, setEmail] = useState("");
@@ -22,8 +32,8 @@ export default function App() {
         body: JSON.stringify({ username, password }),
       });
       if (!res.ok) throw new Error("Błędny login lub hasło");
-      // Token jest ustawiony jako httpOnly cookie przez serwer – nie trzeba go czytać z JSON
-      window.location.href = "http://localhost:3000/";
+
+      globalThis.location.href = resolveDashboardUrl();
     } catch (err) {
       setError(err.message);
     }
@@ -37,12 +47,11 @@ export default function App() {
       const res = await fetch("/api/auth/register", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        credentials: "include",
         body: JSON.stringify({ username, password, email }),
       });
+      const text = await res.text();
       if (!res.ok) {
-        const msg = await res.text();
-        throw new Error(msg || "Błąd rejestracji");
+        throw new Error(text || "Błąd rejestracji");
       }
       setSuccess("Rejestracja udana! Możesz się zalogować.");
       setMode("login");
@@ -51,6 +60,7 @@ export default function App() {
       setEmail("");
     } catch (err) {
       setError(err.message);
+      console.error("[DEBUG] Error:", err);
     }
   };
 
@@ -66,6 +76,7 @@ export default function App() {
             onChange={(e) => setUsername(e.target.value)}
             required
           />
+          
           <input
             type="password"
             placeholder="Hasło"
@@ -75,7 +86,7 @@ export default function App() {
           />
           <button type="submit">Zaloguj</button>
           <div style={{ marginTop: "1rem", textAlign: "center" }}>
-            <span style={{ cursor: "pointer", color: "#1976d2" }} onClick={() => { setMode("register"); setError(""); setSuccess(""); }}>Nie masz konta? Zarejestruj się</span>
+            <button type="button" className="link-button" onClick={() => { setMode("register"); setError(""); setSuccess(""); }}>Nie masz konta? Zarejestruj się</button>
           </div>
           {error && <div className="error">{error}</div>}
           {success && <div className="success">{success}</div>}
@@ -105,7 +116,7 @@ export default function App() {
           />
           <button type="submit">Zarejestruj</button>
           <div style={{ marginTop: "1rem", textAlign: "center" }}>
-            <span style={{ cursor: "pointer", color: "#1976d2" }} onClick={() => { setMode("login"); setError(""); setSuccess(""); }}>Masz już konto? Zaloguj się</span>
+            <button type="button" className="link-button" onClick={() => { setMode("login"); setError(""); setSuccess(""); }}>Masz już konto? Zaloguj się</button>
           </div>
           {error && <div className="error">{error}</div>}
           {success && <div className="success">{success}</div>}

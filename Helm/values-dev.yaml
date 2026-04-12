@@ -80,9 +80,17 @@ istio:
       - iot-agent-login-screen-dev.iotag-dev.com
     # Gateways list, if empty chart auto-selects istio-system/istio-ingressgateway when present
     gateways:
-      - istio-system/istio-ingressgateway
+      - istio-system/iotag-gateway 
     # Optional full HTTP spec override. If empty, chart creates a default route
     http:
+      - match:
+          - uri:
+              prefix: /api/auth
+        route:
+          - destination:
+              host: iot-agent-authentication.iotag-dev.svc.cluster.local
+              port:
+                number: 80
       - match:
           - uri:
               prefix: /
@@ -149,7 +157,7 @@ service:
   annotations: {}
   type: ClusterIP
   port: 80
-  targetPort: 8080
+  targetPort: 80
   name: default-service
   # allocateLoadBalancerNodePorts: false
   # externalTrafficPolicy: Local
@@ -199,6 +207,8 @@ globalEnvs:
     value: "/summary"
   - name: GATEWAY_ROUTES_3_SERVICE
     value: "iot-agent-dashboard-api"
+  - name: AUTH_UPSTREAM
+    value: "http://iot-agent-authentication.iotag-dev.svc.cluster.local"
 
 # Secondary environment variables (for globals, all deployments, to help with multi-inheritance)
 globalEnvsSecondary: []
@@ -233,7 +243,7 @@ livenessProbe:
 
   # parameters for probes
   scheme: HTTP
-  path: /actuator/health/liveness
+  path: /
   port: default-service
   command:
     - ls -la /
@@ -256,7 +266,7 @@ readinessProbe:
 
   # parameters for probes
   scheme: HTTP
-  path: /actuator/health/readiness
+  path: /
   port: default-service
   command:
     - ls -la /
