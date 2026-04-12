@@ -88,7 +88,7 @@ istio:
               prefix: /
         route:
           - destination:
-              host: iot-agent-login-screen.iotag-dev.svc.cluster.local
+              host: iot-agent-login-screen-dev.iotag-dev.svc.cluster.local
               port:
                 number: 80
     # http: []
