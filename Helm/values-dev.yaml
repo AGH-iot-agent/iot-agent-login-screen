@@ -149,7 +149,7 @@ service:
   annotations: {}
   type: ClusterIP
   port: 80
-  targetPort: 8080
+  targetPort: 80
   name: default-service
   # allocateLoadBalancerNodePorts: false
   # externalTrafficPolicy: Local
@@ -233,7 +233,7 @@ livenessProbe:
 
   # parameters for probes
   scheme: HTTP
-  path: /actuator/health/liveness
+  path: /
   port: default-service
   command:
     - ls -la /
@@ -256,7 +256,7 @@ readinessProbe:
 
   # parameters for probes
   scheme: HTTP
-  path: /actuator/health/readiness
+  path: /
   port: default-service
   command:
     - ls -la /
