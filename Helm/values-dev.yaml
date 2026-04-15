@@ -77,7 +77,7 @@ istio:
     name: "iot-agent-login-screen"
     annotations: {}
     hosts:
-      - iot-agent-login-screen.iotag-dev.com
+      - iot-agent-login-screen-dev.iotag-dev.com
     # Gateways list, if empty chart auto-selects istio-system/istio-ingressgateway when present
     gateways:
       - istio-system/istio-ingressgateway
