@@ -2,6 +2,8 @@
 import React, { useState } from "react";
 import "./App.css";
 
+const DASHBOARD_URL = process.env.REACT_APP_DASHBOARD_URL || "http://iot-agent-dashboard-ui-dev.iotag-dev.com/";
+
 export default function App() {
   const [mode, setMode] = useState("login"); // "login" lub "register"
   const [username, setUsername] = useState("");
@@ -23,7 +25,7 @@ export default function App() {
       });
       if (!res.ok) throw new Error("Błędny login lub hasło");
       // Token jest ustawiony jako httpOnly cookie przez serwer – nie trzeba go czytać z JSON
-      window.location.href = "http://localhost:3000/";
+      window.location.href = DASHBOARD_URL;
     } catch (err) {
       setError(err.message);
     }
