@@ -2,7 +2,15 @@
 import React, { useState } from "react";
 import "./App.css";
 
-const DASHBOARD_URL = process.env.REACT_APP_DASHBOARD_URL || "http://iot-agent-dashboard-ui-dev.iotag-dev.com/";
+function resolveDashboardUrl() {
+  const { protocol, hostname } = globalThis.location;
+
+  if (hostname.includes("login-screen")) {
+    return `${protocol}//${hostname.replace("login-screen", "dashboard-ui")}/`;
+  }
+
+  return `${protocol}//${hostname}/`;
+}
 
 export default function App() {
   const [mode, setMode] = useState("login"); // "login" lub "register"
@@ -25,7 +33,7 @@ export default function App() {
       });
       if (!res.ok) throw new Error("Błędny login lub hasło");
       // Token jest ustawiony jako httpOnly cookie przez serwer – nie trzeba go czytać z JSON
-      window.location.href = DASHBOARD_URL;
+      globalThis.location.href = resolveDashboardUrl();
     } catch (err) {
       setError(err.message);
     }
@@ -77,7 +85,7 @@ export default function App() {
           />
           <button type="submit">Zaloguj</button>
           <div style={{ marginTop: "1rem", textAlign: "center" }}>
-            <span style={{ cursor: "pointer", color: "#1976d2" }} onClick={() => { setMode("register"); setError(""); setSuccess(""); }}>Nie masz konta? Zarejestruj się</span>
+            <button type="button" className="link-button" onClick={() => { setMode("register"); setError(""); setSuccess(""); }}>Nie masz konta? Zarejestruj się</button>
           </div>
           {error && <div className="error">{error}</div>}
           {success && <div className="success">{success}</div>}
@@ -107,7 +115,7 @@ export default function App() {
           />
           <button type="submit">Zarejestruj</button>
           <div style={{ marginTop: "1rem", textAlign: "center" }}>
-            <span style={{ cursor: "pointer", color: "#1976d2" }} onClick={() => { setMode("login"); setError(""); setSuccess(""); }}>Masz już konto? Zaloguj się</span>
+            <button type="button" className="link-button" onClick={() => { setMode("login"); setError(""); setSuccess(""); }}>Masz już konto? Zaloguj się</button>
           </div>
           {error && <div className="error">{error}</div>}
           {success && <div className="success">{success}</div>}
