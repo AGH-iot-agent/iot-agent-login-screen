@@ -49,9 +49,11 @@ export default function App() {
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ username, password, email }),
       });
+      console.log("[DEBUG] Status:", res.status);
+      const text = await res.text();
+      console.log("[DEBUG] Response:", text);
       if (!res.ok) {
-        const msg = await res.text();
-        throw new Error(msg || "Błąd rejestracji");
+        throw new Error(text || "Błąd rejestracji");
       }
       setSuccess("Rejestracja udana! Możesz się zalogować.");
       setMode("login");
@@ -60,6 +62,7 @@ export default function App() {
       setEmail("");
     } catch (err) {
       setError(err.message);
+      console.error("[DEBUG] Error:", err);
     }
   };
 
