@@ -49,9 +49,7 @@ export default function App() {
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ username, password, email }),
       });
-      console.log("[DEBUG] Status:", res.status);
       const text = await res.text();
-      console.log("[DEBUG] Response:", text);
       if (!res.ok) {
         throw new Error(text || "Błąd rejestracji");
       }
