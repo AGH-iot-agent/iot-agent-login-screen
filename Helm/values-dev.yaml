@@ -85,18 +85,10 @@ istio:
     http:
       - match:
           - uri:
-              prefix: /api/auth
-        route:
-          - destination:
-              host: iot-agent-login-screen.iotag-dev.svc.cluster.local
-              port:
-                number: 80
-      - match:
-          - uri:
               prefix: /
         route:
           - destination:
-              host: iot-agent-login-screen.iotag-dev.svc.cluster.local
+              host: iot-agent-login-screen
               port:
                 number: 80
     # http: []
@@ -208,7 +200,7 @@ globalEnvs:
   - name: GATEWAY_ROUTES_3_SERVICE
     value: "iot-agent-dashboard-api"
   - name: AUTH_UPSTREAM
-    value: "http://iot-agent-authentication.iotag-dev.svc.cluster.local:80"
+    value: "http://iot-agent-authentication.iotag-dev.svc.cluster.local"
 
 # Secondary environment variables (for globals, all deployments, to help with multi-inheritance)
 globalEnvsSecondary: []
