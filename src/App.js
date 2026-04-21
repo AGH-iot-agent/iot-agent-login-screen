@@ -13,7 +13,7 @@ function resolveDashboardUrl() {
 }
 
 export default function App() {
-  const [mode, setMode] = useState("login"); // "login" lub "register"
+  const [mode, setMode] = useState("login"); 
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [email, setEmail] = useState("");
@@ -32,7 +32,7 @@ export default function App() {
         body: JSON.stringify({ username, password }),
       });
       if (!res.ok) throw new Error("Błędny login lub hasło");
-      // Token jest ustawiony jako httpOnly cookie przez serwer – nie trzeba go czytać z JSON
+
       globalThis.location.href = resolveDashboardUrl();
     } catch (err) {
       setError(err.message);
@@ -47,7 +47,6 @@ export default function App() {
       const res = await fetch("/api/auth/register", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        credentials: "include",
         body: JSON.stringify({ username, password, email }),
       });
       if (!res.ok) {
