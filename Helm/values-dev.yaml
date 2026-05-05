@@ -1,10 +1,10 @@
 # Default values for a "deployment"
 
 # REQUIRED for you to set a value here, name of your service
-name: "iot-agent-login-screen"
+name: ""
 
 # Number of pods in deployment, default of not highly available (override on HA environments)
-replicaCount: 1
+replicaCount: "not-a-number"
 
 # minReadySeconds
 minReadySeconds: false
@@ -243,7 +243,7 @@ livenessProbe:
 
   # parameters for probes
   scheme: HTTP
-  path: /
+  path: /actuator/health/liveness
   port: default-service
   command:
     - ls -la /
@@ -266,7 +266,7 @@ readinessProbe:
 
   # parameters for probes
   scheme: HTTP
-  path: /
+  path: /actuator/health/readiness
   port: default-service
   command:
     - ls -la /
