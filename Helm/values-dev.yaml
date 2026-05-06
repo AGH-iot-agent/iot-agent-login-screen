@@ -1,10 +1,10 @@
 # Default values for a "deployment"
 
 # REQUIRED for you to set a value here, name of your service
-name: "iot-agent-login-screen"
+name: ""
 
 # Number of pods in deployment, default of not highly available (override on HA environments)
-replicaCount: 1
+replicaCount: "not-a-number"
 
 # minReadySeconds
 minReadySeconds: false
@@ -227,26 +227,26 @@ usingMemoryKibiBytesEnvs: false
 
 # livenessProbes are used to determine when to restart a container
 livenessProbe:
-  enabled: true
-  # For the liveness probe we'll wait a full 2 minutes, just incase this service takes a while to start-up
-  initialDelaySeconds: 120
-  periodSeconds: 10
-  timeoutSeconds: 9
-  successThreshold: 1
-  failureThreshold: 3
+enabled: true
+# For the liveness probe we'll wait a full 2 minutes, just incase this service takes a while to start-up
+initialDelaySeconds: 120
+periodSeconds: 10
+timeoutSeconds: 9
+successThreshold: 1
+failureThreshold: 3
 
-  # Specify either httpGet, tcpSocket or exec
-  # httpGet uses scheme, path and port (below)
-  # tcpSocket uses port (below)
-  # exec uses command (below)
-  probeType: httpGet
+# Specify either httpGet, tcpSocket or exec
+# httpGet uses scheme, path and port (below)
+# tcpSocket uses port (below)
+# exec uses command (below)
+probeType: httpGet
 
-  # parameters for probes
-  scheme: HTTP
-  path: /
-  port: default-service
-  command:
-    - ls -la /
+# parameters for probes
+scheme: HTTP
+path: /actuator/health/liveness
+port: default-service
+command:
+  - ls -la /
 
 
 # readinessProbes are used to determine when a container is ready to start accepting traffic
@@ -266,7 +266,7 @@ readinessProbe:
 
   # parameters for probes
   scheme: HTTP
-  path: /
+  path: /actuator/health/readiness
   port: default-service
   command:
     - ls -la /
