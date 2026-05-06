@@ -1,1 +1,1 @@
-namespace: ${{ github.event_name == 'pull_request' && 'iotag-sbx' || 'iotag-dev' }}
+namespace: iotag-sbx
