@@ -88,7 +88,7 @@ istio:
               prefix: /api/auth
         route:
           - destination:
-              host: iot-agent-authentication.iotag-dev.svc.cluster.local
+              host: iot-agent-authentication.iotag-sbx.svc.cluster.local
               port:
                 number: 80
       - match:
