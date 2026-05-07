@@ -1,8 +1,4 @@
-name: CI
-on:
-  push:
-    branches:
-      - fix/agent-ci-main
+namespace: iotag-dev
 jobs:
   build:
     runs-on: ubuntu-latest
