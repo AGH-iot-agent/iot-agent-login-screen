@@ -2,9 +2,29 @@ name: CI
 
 on:
   push:
-    branches: [ main, feat/IOTAG-01-login-screen]
+    branches: [ main ] 
   pull_request:
-    branches: [ main, feat/IOTAG-01-login-screen ]
+    branches: [ main ]
+  workflow_call:
+    inputs:
+      service_name:
+        required: true
+        type: string
+      project_type:
+        required: true
+        type: string
+      node_version:
+        required: true
+        type: string
+      values_file:
+        required: true
+        type: string
+      chart_type:
+        required: true
+        type: string
+      namespace:
+        required: true
+        type: string
 
 jobs:
   pipeline:
