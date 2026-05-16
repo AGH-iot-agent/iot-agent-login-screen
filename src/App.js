@@ -1,4 +1,3 @@
-
 import React, { useState } from "react";
 import "./App.css";
 
@@ -31,7 +30,7 @@ export default function App() {
         credentials: "include",
         body: JSON.stringify({ username, password }),
       });
-      if (!res.ok) throw new Error("Błędny login lub hasło");
+      if (!res.ok) throw new Error("Invalid username or password");
 
       globalThis.location.href = resolveDashboardUrl();
     } catch (err) {
