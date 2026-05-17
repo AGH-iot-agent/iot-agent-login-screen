@@ -218,27 +218,26 @@ usingMemoryKibiBytesEnvs: false
 
 # livenessProbes are used to determine when to restart a container
 livenessProbe:
-enabled: true
-# For the liveness probe we'll wait a full 2 minutes, just incase this service takes a while to start-up
-initialDelaySeconds: 120
-periodSeconds: 10
-timeoutSeconds: 9
-successThreshold: 1
-failureThreshold: 3
+  enabled: true
+  # For the liveness probe we'll wait a full 2 minutes, just incase this service takes a while to start-up
+  initialDelaySeconds: 120
+  periodSeconds: 10
+  timeoutSeconds: 9
+  successThreshold: 1
+  failureThreshold: 3
 
-# Specify either httpGet, tcpSocket or exec
-# httpGet uses scheme, path and port (below)
-# tcpSocket uses port (below)
-# exec uses command (below)
-probeType: httpGet
+  # Specify either httpGet, tcpSocket or exec
+  # httpGet uses scheme, path and port (below)
+  # tcpSocket uses port (below)
+  # exec uses command (below)
+  probeType: httpGet
 
-# parameters for probes
-scheme: HTTP
-path: /
-port: default-service
-command:
-  - ls -la /
-
+  # parameters for probes
+  scheme: HTTP
+  path: /
+  port: default-service
+  command:
+    - ls -la /
 
 # readinessProbes are used to determine when a container is ready to start accepting traffic
 readinessProbe:
