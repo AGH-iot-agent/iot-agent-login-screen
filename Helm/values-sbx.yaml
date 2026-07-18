@@ -1,5 +1,5 @@
 name: "iot-agent-login-screen"
-replicaCount: "not-a-number"
+replicaCount: 1
 minReadySeconds: false
 revisionHistoryLimit: "false"
 priorityClassName: ""
@@ -107,7 +107,6 @@ globalEnvs:
     value: "iot-agent-dashboard-api"
   - name: AUTH_UPSTREAM
     value: "http://iot-agent-authentication.iotag-sbx.svc.cluster.local:80"
-
 
 globalEnvsSecondary: []
 extraEnvs: []
