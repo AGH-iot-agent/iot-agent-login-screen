@@ -4,13 +4,13 @@
 name: "iot-agent-login-screen"
 
 # Number of pods in deployment, default of not highly available (override on HA environments)
-replicaCount: "not-a-number"
+replicaCount: 1
 
 # minReadySeconds
 minReadySeconds: false
 
 # Rollback limit
-revisionHistoryLimit: "false"
+revisionHistoryLimit: 10
 
 # The pod priority, to make things more critical
 # See: https://kubernetes.io/docs/concepts/scheduling-eviction/pod-priority-preemption/
@@ -268,12 +268,12 @@ dnsConfig:
   enabled: false
   # Optimization/Load/Scale note: Reduce the ndots value, to reduce the search path expansion of DNS queries, less impact on core-dns, default is 6, lower to 2 ideally
   ndots: 6
-  # Customize the DNS options.  NOTE: Do not customize NDOTS here, instead use the above variable
+  # Customize the DNS options.  NOTE: do not customize NDOTS here, instead use the above variable
   options: []
   # Customize the search domains.  Shouldn't need this normally, but useful for compatibility with legacy platforms, or for a multi-region or multi-cloud setup
   searches: []
   # Customize the nameservers.
-  nameservers: []
+nameservers: []
 
 # container resource requests/limits
 # this is set VERY low by default, to be aggressive above resource limiting, please override this if necessary
