@@ -4,7 +4,7 @@
 name: "iot-agent-login-screen"
 
 # Number of pods in deployment, default of not highly available (override on HA environments)
-replicaCount: "not-a-number"
+replicaCount: 1
 
 # minReadySeconds
 minReadySeconds: false
@@ -331,7 +331,7 @@ podDistuptionBudget:
 # What deployment strategy to use
 deploymentStrategy:
   # Recreate / RollingUpdate
-  type: RollingUpdate
+type: RollingUpdate
   rollingUpdate:
     # Minimize downtime by only having only 25 percent max unavailable.  If you're only at 3 pods, because 33% it won't kill any pods before one gets healthy first.
     maxUnavailable: 25%
@@ -352,7 +352,7 @@ sidecar:
 serviceAccount:
   # Disabled by default, set to true if you want
   enabled: false
-  # Add annotations if desited,
+  # Add annotations if desided,
   annotations: {}
     # Here's an example of assigning an IAM role to a pod
     # eks.amazonaws.com/role-arn: arn:aws:iam::123123123:role/role-name-goes-here
