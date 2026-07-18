@@ -1,7 +1,7 @@
 name: "iot-agent-login-screen"
-replicaCount: "not-a-number"
+replicaCount: 1
 minReadySeconds: false
-revisionHistoryLimit: "false"
+revisionHistoryLimit: 10
 priorityClassName: ""
 shareProcessNamespace: false
 image:
@@ -108,7 +108,6 @@ globalEnvs:
   - name: AUTH_UPSTREAM
     value: "http://iot-agent-authentication.iotag-sbx.svc.cluster.local:80"
 
-
 globalEnvsSecondary: []
 extraEnvs: []
 tty: false
@@ -177,21 +176,4 @@ deploymentStrategy:
     maxSurge: 25%
 
 
-global:
-  image:
-    tag: ""
-  namespace: "iotag-sbx"
 
-sidecar:
-  enabled: false
-
-serviceAccount:
-  enabled: false
-  annotations: {}
-
-hostname: ""
-
-rbac:
-  create: false
-  rules:
-  clusterWideAccess: false
