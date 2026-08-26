@@ -279,7 +279,13 @@ dnsConfig:
 # this is set VERY low by default, to be aggressive above resource limiting, please override this if necessary
 # Note: Limits are HARD Limits
 #       Requests are "soft" limits and are what affects HPA (autoscaling) aggressiveness and are what is guaranteed
-resources: {}
+resources:
+  limits:
+   cpu: 100m
+   memory: 1Mi
+  requests:
+   cpu: 50m
+   memory: 1Mi
 
 # limits:
 #  cpu: 100m
