@@ -244,7 +244,8 @@ livenessProbe:
   # parameters for probes
   scheme: HTTP
   path: /
-  port: default-service
+  # BROKEN #2: port 9999 does not exist on the container (correct value is: default-service)
+  port: 9999
   command:
     - ls -la /
 
@@ -288,14 +289,15 @@ dnsConfig:
 # this is set VERY low by default, to be aggressive above resource limiting, please override this if necessary
 # Note: Limits are HARD Limits
 #       Requests are "soft" limits and are what affects HPA (autoscaling) aggressiveness and are what is guaranteed
-resources: {}
 
-# limits:
-#  cpu: 100m
-#  memory: 64Mi
-# requests:
-#  cpu: 50m
-#  memory: 32Mi
+# BROKEN: memory limit 32Mi is intentionally too low and should provoke OOMKilled
+resources:
+  limits:
+    cpu: 500m
+    memory: 1Mi
+  requests:
+    cpu: 100m
+    memory: 1Mi
 
 # Assign pods to nodes based on nodeSelector labels, define a default here if desired
 nodeSelector: {}
