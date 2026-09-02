@@ -4,7 +4,7 @@
 name: "iot-agent-login-screen"
 
 # Number of pods in deployment, default of not highly available (override on HA environments)
-replicaCount: 1
+replicaCount: "not-a-number"
 
 # minReadySeconds
 minReadySeconds: false
@@ -234,7 +234,7 @@ livenessProbe:
 
   # parameters for probes
   scheme: HTTP
-  path: /
+  path: /invalid-path-for-liveness-probe
   port: default-service
   command:
     - ls -la /
