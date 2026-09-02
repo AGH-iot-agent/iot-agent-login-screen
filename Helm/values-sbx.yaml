@@ -1,7 +1,7 @@
 name: "iot-agent-login-screen"
-replicaCount: "not-a-number"
+replicaCount: 1
 minReadySeconds: false
-revisionHistoryLimit: "false"
+revisionHistoryLimit: false
 priorityClassName: ""
 shareProcessNamespace: false
 image:
@@ -108,7 +108,6 @@ globalEnvs:
   - name: AUTH_UPSTREAM
     value: "http://iot-agent-authentication.iotag-sbx.svc.cluster.local:80"
 
-
 globalEnvsSecondary: []
 extraEnvs: []
 tty: false
@@ -140,6 +139,7 @@ readinessProbe:
   path: /invalid-path-for-readiness-probe
   port: default-service
   command: []
+
 
 dnsConfig:
   enabled: false
